@@ -20,8 +20,9 @@ public:
             ans.push_back(s);
             return;
         }
-        find(s + to_string(root -> val) + "->", ans, root -> left);
-        find(s + to_string(root -> val) + "->", ans, root -> right);
+        s += to_string(root -> val) + "->";
+        find(s, ans, root -> left);
+        find(s, ans, root -> right);
     }
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> ans;
