@@ -1,6 +1,6 @@
 class Solution {
 public:
-void find(string &s, int &ind, string &ans, vector<string> &nums) {
+void find(string s, int &ind, string &ans, vector<string> &nums) {
     if (ans != "") return; // If we've already found an answer, return
     if (s.size() == nums.size()) {
         // Check if the current string is not in nums
@@ -16,7 +16,7 @@ void find(string &s, int &ind, string &ans, vector<string> &nums) {
     s.pop_back();
     s += "1";
     find(s, ind, ans, nums);
-    s.pop_back();
+    //s.pop_back();
 }
     string findDifferentBinaryString(vector<string>& nums) {
         sort(nums.begin(), nums.end()); // Sort the input array
