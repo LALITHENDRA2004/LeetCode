@@ -1,18 +1,13 @@
 class Solution {
 public:
-    void find(int i, int x, int &sum, vector<int> &nums) {
-        if(i == nums.size()) {
-            sum += x;
-            return;
-        }
-        x = x ^ nums[i];
-        find(i + 1, x, sum, nums);
-        x = x ^ nums[i];
-        find(i + 1, x, sum, nums);
+    int find(int i, int x, vector<int> &nums) {
+        if(i == nums.size()) return x;
+        int pick =  find(i + 1, x ^ nums[i], nums);
+        int notPick = find(i + 1, x, nums);
+        return pick + notPick;
     }
     int subsetXORSum(vector<int>& nums) {
-        int x = 0, sum = 0;
-        find(0, x, sum, nums);
-        return sum;
+        int ans = find(0, 0, nums);
+        return ans;
     }
 };
