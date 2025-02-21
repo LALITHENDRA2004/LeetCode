@@ -17,8 +17,8 @@ class FindElements {
             
             root -> val = val;
             contains[root -> val] = true;
-            if(root -> left) change(root -> left, val * 2 + 1);
-            if(root -> right) change(root -> right, val * 2 + 2);
+            change(root -> left, val * 2 + 1);
+            change(root -> right, val * 2 + 2);
         }
 public:
     FindElements(TreeNode* root) {
