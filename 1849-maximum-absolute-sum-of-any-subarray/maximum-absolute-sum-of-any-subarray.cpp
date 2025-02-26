@@ -16,13 +16,7 @@ public:
             }
         }
 
-        cout << maxi << " is at " << ind1 << endl << mini << " is at " << ind2 << endl;
-
-        for(int i : prefix) cout << i << " ";
-        cout << endl;
-
-        //int m1 = abs(maxi), m2 = abs(mini);
-        int lpmForm1 = 0, lnmForm1 = 0, lpmForm2 = 0, lnmForm2;
+        int lpmForm1 = 0, lnmForm1 = 0, lpmForm2 = 0, lnmForm2 = 0;
         for(int i = 0 ; i <= max(ind1 - 1, ind2 - 1) ; i++) {
             if(i <= ind1 - 1) {
                 lpmForm1 = max(lpmForm1, prefix[i]);
@@ -34,27 +28,13 @@ public:
             }
         }
 
-        //cout << "m1 = " << m1 << endl << "m2 = " << m2 << endl;
-        cout << lpmForm1 << " " << lnmForm1 << endl << lpmForm2 << " " << lnmForm2 << endl;
-
         int ans1 = 0, ans2 = 0;
-        if(maxi < 0) {
-            // requires left positive max
-            ans1 = abs(maxi - lpmForm1);
-        }
-        else {
-            // requires left negative max (abs) 5 - (-100) 
-            ans1 = maxi - lnmForm1;
-        }
+        if(maxi < 0) ans1 = abs(maxi - lpmForm1);
+        else ans1 = maxi - lnmForm1;
 
-        if(mini < 0) {
-            // requires left positive max if not itself is the answer
-            ans2 = abs(mini - lpmForm2);
-        }
-        else {
-            // requires left negative max
-            ans2 = mini - lnmForm2;
-        }
+        if(mini < 0) ans2 = abs(mini - lpmForm2);
+        else ans2 = mini - lnmForm2;
+
         return max(ans1, ans2);
 
         
