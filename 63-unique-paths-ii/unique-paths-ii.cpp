@@ -20,7 +20,6 @@ public:
                 if(curr[j - 1] != -1) x += curr[j - 1];
                 if(prev[j] != -1) x += prev[j];
                 if(obstacleGrid[i][j] != 1) curr[j] = x;
-                else curr[j] = -1;
             }
             prev = curr;
             fill(curr.begin(), curr.end(), -1);
