@@ -3,7 +3,7 @@ public:
     #define ll long long
     ll find(int row, int col, vector<vector<int>> &mat, vector<vector<ll>> &dp) {
         if(col >= mat[0].size() || col < 0) return INT_MAX;
-        if(row == mat.size() - 1 && col >= 0 && col < mat[0].size()) return mat[row][col];
+        if(row >= mat.size()) return 0;
         if(dp[row][col] != INT_MAX) return dp[row][col];
         ll left = mat[row][col] + find(row + 1, col - 1, mat, dp);
         ll down = mat[row][col] + find(row + 1, col, mat, dp);
