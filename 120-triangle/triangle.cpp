@@ -3,7 +3,6 @@ public:
     #define ll long long
     int minimumTotal(vector<vector<int>>& triangle) {
         ll rows = triangle.size() - 1, cols = triangle[rows].size() - 1;
-        vector<vector<ll>> dp(rows + 1, vector<ll> (cols + 1, INT_MAX));
 
         vector<ll> prev(cols + 1, INT_MAX), curr(cols + 1, INT_MAX);
 
