@@ -1,23 +1,29 @@
 class Solution {
 public:
-    #define ll long long
-    ll find(int row, int col, vector<vector<int>> &mat, vector<vector<ll>> &dp) {
-        if(col >= mat[0].size() || col < 0) return INT_MAX;
-        if(row >= mat.size()) return 0;
-        if(dp[row][col] != INT_MAX) return dp[row][col];
-        ll left = mat[row][col] + find(row + 1, col - 1, mat, dp);
-        ll down = mat[row][col] + find(row + 1, col, mat, dp);
-        ll right = mat[row][col] + find(row + 1, col + 1, mat, dp);
-        return dp[row][col] = min(down, min(left, right));
-    }
     int minFallingPathSum(vector<vector<int>>& matrix) {
-        int rows = matrix.size(), cols = matrix[0].size();
-        vector<vector<ll>> dp(rows, vector<ll> (cols, INT_MAX));
-        ll mini = INT_MAX;
+        int rows = matrix.size(), cols = matrix[0].size(), ans = INT_MAX;
+        vector<vector<int>> dp(rows, vector<int> (cols, INT_MAX));
+
         for(int i = 0 ; i < cols ; i++) {
-            ll res = find(0, i, matrix, dp);
-            mini = min(mini, res);
+            dp[0][i] = matrix[0][i];
         }
-        return mini;
+
+        for(int i = 1 ; i < rows ; i++) {
+            for(int j = 0 ; j < cols ; j++) {
+                int mini = INT_MAX;
+
+                int left = INT_MAX, right = INT_MAX;
+                int top = matrix[i][j] + dp[i-1][j];
+                if(j > 0) left = matrix[i][j] + dp[i-1][j-1];
+                if(j < matrix.size()-1) right = matrix[i][j] + dp[i-1][j+1];
+
+                dp[i][j] = min(top, min(left, right));
+
+                if(i == rows-1) {
+                    ans = min(ans, dp[i][j]);
+                }
+            }
+        }
+        return ans == INT_MAX ? matrix[0][0] : ans;
     }
 };
