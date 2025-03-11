@@ -5,24 +5,23 @@ public:
         for(int i : nums) sum += i;
 
         if(sum % 2 != 0) return false;
-        vector<vector<int>> dp(nums.size(), vector<int> ((sum / 2) + 1, 0));
+        vector<int> prev((sum / 2) + 1, 0), curr((sum / 2) + 1, 0);
 
-        for(int i = 0 ; i < nums.size() ; i++) {
-            dp[i][0] = true;
-        }
-
-        if(nums[0] <= (sum / 2)) dp[0][nums[0]] = true;
+        prev[0] = true;
+        if(nums[0] <= (sum / 2)) prev[nums[0]] = true;
 
         for(int i = 1 ; i < nums.size() ; i++) {
+            curr[0] = true;
             for(int t = 1 ; t <= (sum / 2) ; t++) {
                 bool pick = false;
-                if(nums[i] <= t) pick = dp[i - 1][t - nums[i]];
-                bool notPick = dp[i - 1][t];
+                if(nums[i] <= t) pick = prev[t - nums[i]];
+                bool notPick = prev[t];
 
-                dp[i][t] = pick || notPick;
+                curr[t] = pick || notPick;
             }
+            prev = curr;
         }
 
-        return dp[nums.size() - 1][(sum / 2)];
+        return curr[(sum / 2)];
     }
 };
