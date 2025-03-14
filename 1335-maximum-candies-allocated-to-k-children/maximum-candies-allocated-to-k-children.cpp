@@ -10,7 +10,6 @@ public:
     }
     int maximumCandies(vector<int>& candies, long long k) {
         ll low = 0, high = 1e7;
-        ll ans = 0;
         while(low <= high) {
             ll mid = (low + high) / 2;
             if(mid == 0) return high;
@@ -20,9 +19,8 @@ public:
             }
             else{
                 low = mid + 1;
-                ans = max(ans, mid);
             }
         }
-        return ans;
+        return high;
     }
 };
