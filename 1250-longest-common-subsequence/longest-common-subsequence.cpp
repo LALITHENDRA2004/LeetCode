@@ -1,35 +1,37 @@
 class Solution {
 public:
-    int find(int i1, int i2, string &t1, string &t2, vector<vector<int>> &dp) {
-        if(i1 == 0 && i2 == 0) {
-            if(t1[i1] == t2[i2]) return 1;
-            return 0;
-        }
-        if(i1 == 0) {
-            int x = find(i1, i2 - 1, t1, t2, dp);
-            if(t1[i1] == t2[i2]) return max(1, x);
-            return x;
-        }
-
-        if(i2 == 0) {
-            int x = find(i1 - 1, i2, t1, t2, dp);
-            if(t1[i1] == t2[i2]) return max(1, x);
-            return x;
-        }
-        if(dp[i1][i2] != -1) return dp[i1][i2];
-        if(t1[i1] == t2[i2]) {
-            return dp[i1][i2] = 1 + find(i1 - 1, i2 - 1, t1, t2, dp);
-        }
-        else {
-            int left  = find(i1 - 1, i2, t1, t2, dp);
-            int right = find(i1, i2 - 1, t1, t2, dp);
-
-            return dp[i1][i2] = max(left, right);
-        }
-    }
     int longestCommonSubsequence(string text1, string text2) {
         int n = text1.size(), m = text2.size();
-        vector<vector<int>> dp(n, vector<int> (m, -1));
-        return find(n - 1, m - 1, text1, text2, dp);
+        vector<vector<int>> dp(n, vector<int> (m, 0));
+        
+        if(text1[0] == text2[0]) {
+            dp[0][0] = 1;
+        }
+
+        for(int i = 1 ; i < m ; i++) {
+            if(text1[0] == text2[i]) dp[0][i] = max(1, dp[0][i - 1]);
+            else dp[0][i] = dp[0][i - 1]; 
+        } 
+
+        for(int i = 1 ; i < n ; i++) {
+            if(text1[i] == text2[0]) dp[i][0] = max(1, dp[i - 1][0]);
+            else dp[i][0] = dp[i - 1][0];
+        }
+
+        for(int i = 1 ; i < n ; i++) {
+            for(int j = 1 ; j < m ; j++) {
+                if(text1[i] == text2[j]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                }
+                else {
+                    int left  = dp[i - 1][j];
+                    int right = dp[i][j - 1];
+
+                    dp[i][j] = max(left, right);
+                }
+            }
+        }
+
+        return dp[n - 1][m - 1];
     }
 };
